@@ -24,10 +24,6 @@ const MovieDetails: React.FC = () => {
             })
         }
         loadMovie()
-
-        return () => {
-            console.log('componente foi desmontado')
-        }
     }, [])
 
     if (isLoading) {
