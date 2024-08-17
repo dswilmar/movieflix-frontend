@@ -44,7 +44,8 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
                 await setUser({
                     id,
                     name,
-                    email
+                    email,
+                    token
                 })
             }
         }
@@ -63,7 +64,8 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
             setUser({
                 id: response.data.id,
                 name: response.data.name,
-                email: response.data.email
+                email: response.data.email,
+                token: response.data.token
             })
 
             localStorage.setItem('@Auth.id', response.data.id)
@@ -81,6 +83,7 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
     const logout = async () => {
         await localStorage.clear();
         setIsAuthenticated(false);
+        setUser(null)
     };
 
     return (

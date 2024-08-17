@@ -1,13 +1,38 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import api from "../../services/api"
 import { Movie } from "../../types"
 import './styles.css'
+import authApi from "../../services/authApi"
+import { AuthContext } from "../../contexts/AuthContext"
+import { AxiosError, AxiosResponse } from "axios"
 
 const MovieDetails: React.FC = () => {
     const { id } = useParams()
+    const { user } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [movie, setMovie] = useState<Movie | null>(null)
+
+    const handleAddBookmark = async() => {
+        if (movie && user) {
+            try {
+                const response: AxiosResponse = await authApi.post('bookmarks', {
+                    movieId: id,
+                    movieTitle: movie.title,
+                    moviePosterPath: movie.poster_path
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    }
+                })
+                if (response.status === 200) {
+                    alert('Filme adicionado ao seus favoritos!')
+                }
+            } catch (exception: any | AxiosError) {
+                alert(exception.response.data.error)
+            }
+        }
+    }
 
     useEffect(() => {
         const loadMovie = async () => {
@@ -48,7 +73,8 @@ const MovieDetails: React.FC = () => {
                 <h1>{movie.title}</h1>
                 <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt={movie.title} />
                 <h3>Sinopse</h3>
-                <span>{movie.overview}</span>
+                <span>{movie.overview}</span>                
+                <button onClick={handleAddBookmark}>Adicionar aos favoritos</button>
             </div>
         </div>
     )

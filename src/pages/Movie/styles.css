@@ -29,3 +29,15 @@
     align-items: center;
     margin-top: 15px;
 }
+
+.movie-info button {
+    display: block;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #FFF;
+    padding: 5px 14px;
+    text-decoration: none;
+    color: #000;
+    border-radius: 4px;
+    margin-left: 4px;
+}

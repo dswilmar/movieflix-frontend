@@ -28,7 +28,7 @@ const Home: React.FC = () => {
             <div className="movies-list">
                 {movies.map((movie) => {
                     return (
-                        <MovieCard id={movie.id} title={movie.title} overview={movie.overview} poster_path={movie.poster_path} />
+                        <MovieCard id={movie.id} title={movie.title} poster_path={movie.poster_path} />
                     )
                 })}
             </div>
