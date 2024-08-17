@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import api from "../../services/api"
 import { Movie } from "../../types"
 import './styles.css'
+import MovieCard from "../../components/MovieCard"
 
 const Home: React.FC = () => {
 
@@ -28,11 +28,7 @@ const Home: React.FC = () => {
             <div className="movies-list">
                 {movies.map((movie) => {
                     return (
-                        <article key={movie.id}>
-                            <strong>{movie.title}</strong>
-                            <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="" />
-                            <Link to={`/movie/${movie.id}`}>Detalhes</Link>
-                        </article>
+                        <MovieCard id={movie.id} title={movie.title} overview={movie.overview} poster_path={movie.poster_path} />
                     )
                 })}
             </div>
